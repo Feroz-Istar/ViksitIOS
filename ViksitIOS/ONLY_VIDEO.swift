@@ -26,11 +26,12 @@ class ONLY_VIDEO: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print(slide.templateName)
+        getVideoFromDocuments(videoURL: slide.video.url)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         //getVideoFromDocuments(videoURL: "http://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_1mb.mp4")
-        getVideoFromDocuments(videoURL: slide.video.url)
+        
     }
 
     // play video
@@ -51,7 +52,7 @@ class ONLY_VIDEO: UIViewController {
     //getting file from document directory
     func getVideoFromDocuments(videoURL: String) -> URL{
         let finalFileName = videoURL.components(separatedBy: "/").last
-        print(finalFileName!)
+        //print(finalFileName!)
         let documentsURL = try! FileManager().url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
         let fooURL = documentsURL.appendingPathComponent(finalFileName!)
         let fileExists = FileManager().fileExists(atPath: fooURL.path)
@@ -59,7 +60,7 @@ class ONLY_VIDEO: UIViewController {
         if !fileExists {
             saveVideoAsync(urlToYourVideo: videoURL)
         }
-        
+        print(fooURL)
         //print(fileExists)
         return fooURL
     }
@@ -71,7 +72,7 @@ class ONLY_VIDEO: UIViewController {
         let finalFileName = urlToYourVideo.components(separatedBy: "/").last
         print(finalFileName!)
         
-        DispatchQueue.global(qos: .background).async {
+        DispatchQueue.global(qos: .userInteractive).async {
             if let url = URL(string: urlToYourVideo),
                 let urlData = NSData(contentsOf: url)
             {

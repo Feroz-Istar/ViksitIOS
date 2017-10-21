@@ -34,6 +34,7 @@ class ONLY_TITLE_LIST: UIViewController {
                 if item.text != "" {
                     //ThemeUtil.setListItemTextLabel(text: item.text, listStack: listStack)
                     ThemeUtil.setListItemTextLabelCustom(text: item.text, listStack: listStack)
+                    
                 }
                 
             }

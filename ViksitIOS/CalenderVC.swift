@@ -195,12 +195,15 @@ extension CalenderVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(filteredEvents[indexPath.row].id!)
+        print("\(filteredEvents[indexPath.row].id!) -- \(filteredEvents[indexPath.row].itemType!)")
         
         if filteredEvents[indexPath.row].itemType == "ASSESSMENT" {
             
-        } else if (filteredEvents[indexPath.row].itemType == "PRESENTATION" || filteredEvents[indexPath.row].itemType == "PRESENTATION") {
-            
+        } else if (filteredEvents[indexPath.row].itemType == "PRESENTATION" || filteredEvents[indexPath.row].itemType == "LESSON_PRESENTATION") {
+            let storyBoard : UIStoryboard = UIStoryboard(name: "Lesson", bundle:nil)
+            let nextViewController = storyBoard.instantiateViewController(withIdentifier: "LessonsPageVC") as! LessonsPageVC
+            nextViewController.lessonID = filteredEvents[indexPath.row].itemId
+            self.present(nextViewController, animated:true, completion:nil)
         }
     }
     

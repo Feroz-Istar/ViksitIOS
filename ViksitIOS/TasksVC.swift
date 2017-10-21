@@ -583,6 +583,11 @@ extension TasksVC: UITableViewDataSource, UITableViewDelegate {
                 
             }
 
+        } else if (completedTasks[indexPath.row].itemType == "PRESENTATION" || completedTasks[indexPath.row].itemType == "LESSON_PRESENTATION") {
+            let storyBoard : UIStoryboard = UIStoryboard(name: "Lesson", bundle:nil)
+            let nextViewController = storyBoard.instantiateViewController(withIdentifier: "LessonsPageVC") as! LessonsPageVC
+            nextViewController.lessonID = completedTasks[indexPath.row].itemId
+            self.present(nextViewController, animated:true, completion:nil)
         }
     }
 

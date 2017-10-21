@@ -30,6 +30,8 @@ class ONLY_TITLE_PARAGRAPH_cells_fragemented: UIViewController {
         //webView.scrollView.bounces = false
         //webView.loadHTMLString(ThemeUtil.wrapInHtml(body: slide.paragraph.text, fontsize: "14"), baseURL: nil)
         webView.setHTMLFromString(htmlText: slide.paragraph.text)
+        webView.font = webView.font?.withSize(10)
+        
         if (slide.image_BG != "null" || slide.image_BG != "none"){
             ImageAsyncLoader.loadImageAsync(url: slide.image_BG, imgView: gifImageView)
         } else {

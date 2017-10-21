@@ -45,13 +45,14 @@ extension NotificationsVC: UITableViewDataSource, UITableViewDelegate {
         print("\(notifications[indexPath.row].id!)   -   \(notifications[indexPath.row].itemType)")
         
         if notifications[indexPath.row].itemType == "ASSESSMENT" || notifications[indexPath.row].itemType == "LESSON_ASSESSMENT" {
-            //
+
             let storyBoard : UIStoryboard = UIStoryboard(name: "assessment", bundle:nil)
             let nextViewController = storyBoard.instantiateViewController(withIdentifier: "AssessmentVC")
             self.present(nextViewController, animated:true, completion:nil)
         } else if notifications[indexPath.row].itemType == "LESSON_PRESENTATION" || notifications[indexPath.row].itemType == "PRESENTATION" {
-            let storyBoard : UIStoryboard = UIStoryboard(name: "assessment", bundle:nil)
-            let nextViewController = storyBoard.instantiateViewController(withIdentifier: "AssessmentVC")
+            let storyBoard : UIStoryboard = UIStoryboard(name: "Lesson", bundle:nil)
+            let nextViewController = storyBoard.instantiateViewController(withIdentifier: "LessonsPageVC") as! LessonsPageVC
+            nextViewController.lessonID = notifications[indexPath.row].itemId
             self.present(nextViewController, animated:true, completion:nil)
         } else if notifications[indexPath.row].itemType == "CLASSROOM_SESSION_STUDENT" {
             
@@ -89,7 +90,11 @@ extension NotificationsVC: UITableViewDataSource, UITableViewDelegate {
         //
        
         //
-        if notifications[indexPath.row].timeFormat == Date() {
+        var tempDate = Date()
+        let calendar = Calendar.current
+        tempDate = calendar.date(byAdding: .hour, value: 5, to: tempDate)!
+        tempDate = calendar.date(byAdding: .minute, value: 30, to: tempDate)!
+        if notifications[indexPath.row].timeFormat == tempDate {
             let calendar = Calendar.current
             let comp = calendar.dateComponents([.hour, .minute], from: notifications[indexPath.row].timeFormat!)
             let hour = comp.hour
